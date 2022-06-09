@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--  Theme Color  -->
+    <color name="primary">#011456</color>
+    <color name="primary_dark">#00002d</color>
+    <color name="primary_light">#3c3a83</color>
+    <color name="secondary">#00adc0</color>
+    <color name="secondary_dark">#007d90</color>
+    <color name="secondary_light">#5ddff3</color>
+    <color name="on_primary">#ffffff</color>
+    <color name="on_secondary">#000000</color>
+    <color name="info">#1976D2</color>
+    <color name="warning">#FFA600</color>
+    <color name="active">#069550</color>
+    <color name="error">#D32F2F</color>
+    <color name="header_text_color">#212121</color>
+    <color name="sub_header_text_color">#616161</color>
+    <color name="body_text_color">#424242</color>
+    <color name="disabled_text_color">#757575</color>
+    <color name="hint_text_color">#9E9E9E</color>
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
