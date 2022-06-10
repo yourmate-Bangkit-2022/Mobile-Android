@@ -26,4 +26,6 @@
     <string name="repeat_password">Repeat Password</string>
     <string name="login_now">Sudah punya akun? Login Sekarang</string>
     <string name="register">Register</string>
+
+    <string name="loading">Loading...</string>
 </resources>

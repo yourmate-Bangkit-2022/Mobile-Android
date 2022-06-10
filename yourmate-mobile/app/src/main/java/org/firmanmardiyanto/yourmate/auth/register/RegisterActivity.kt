@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import org.firmanmardiyanto.yourmate.R
+import org.firmanmardiyanto.yourmate.base.LoadingDialog
 import org.firmanmardiyanto.yourmate.data.Resource
 import org.firmanmardiyanto.yourmate.databinding.ActivityRegisterBinding
 import org.firmanmardiyanto.yourmate.home.HomeActivity
@@ -22,8 +23,11 @@ import org.firmanmardiyanto.yourmate.viewmodels.AuthViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class RegisterActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityRegisterBinding
     private val authViewModel: AuthViewModel by viewModel()
+
+    private val loadingDialog by lazy { LoadingDialog.create() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,14 +55,11 @@ class RegisterActivity : AppCompatActivity() {
                         .observe(this@RegisterActivity) {
                             when (it) {
                                 is Resource.Loading -> {
+                                    loadingDialog.show(supportFragmentManager)
                                     btnRegister.isEnabled = false
                                 }
                                 is Resource.Success -> {
-                                    Toast.makeText(
-                                        this@RegisterActivity,
-                                        "Register Success",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    loadingDialog.dismiss()
                                     startActivity(
                                         Intent(
                                             this@RegisterActivity,
@@ -68,6 +69,7 @@ class RegisterActivity : AppCompatActivity() {
                                     finish()
                                 }
                                 is Resource.Error -> {
+                                    loadingDialog.dismiss()
                                     Toast.makeText(
                                         this@RegisterActivity,
                                         it.message,

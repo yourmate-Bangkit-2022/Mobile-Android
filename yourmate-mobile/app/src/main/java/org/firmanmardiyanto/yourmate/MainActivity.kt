@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
             when (it) {
                 is Resource.Loading -> Unit
                 is Resource.Success -> {
-//                    Toast.makeText(this, "Welcome ${it.data!!.uid}", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, HomeActivity::class.java))
                     finish()
                 }
