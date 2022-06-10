@@ -14,4 +14,16 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="register_account">Belum punya akun? Daftar Sekarang</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="welcome_desc">Hello, senang melihat anda kembali 😄. Anda bisa melanjutkan menggunakan app setelah anda login kembali.</string>
+    <string name="welcome_title">Selamat Datang 👋</string>
+    <string name="register_title">Buat Akun</string>
+    <string name="register_desc">Buat akun agar dapat menggunakan yourmate 😉.</string>
+    <string name="name">Nama</string>
+    <string name="repeat_password">Repeat Password</string>
+    <string name="login_now">Sudah punya akun? Login Sekarang</string>
+    <string name="register">Register</string>
 </resources>

@@ -12,10 +12,8 @@ class AuthViewModel(private val authUseCase: AuthUseCase) : ViewModel() {
     fun login(email: String, password: String) =
         authUseCase.signIn(email, password).asLiveData()
 
-
     fun register(email: String, password: String, name: String) =
         authUseCase.signUp(email, password, name).asLiveData()
-
 
     fun logout() = authUseCase.signOut().asLiveData()
 }

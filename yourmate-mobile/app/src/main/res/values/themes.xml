@@ -17,6 +17,10 @@
         <item name="textAppearanceOverline">@style/TextAppearance.YourMate.Overline</item>
         <!--    Widget Style    -->
         <item name="android:textViewStyle">@style/Widget.YourMate.TextView</item>
+        <item name="circularProgressIndicatorStyle">
+            @style/Widget.YourMate.CircularProgressIndicator.Indeterminate
+        </item>
+        <item name="textInputStyle">@style/Widget.YourMate.TextInputLayout.OutlinedBox</item>
     </style>
 
     <style name="Theme.YourMate" parent="Base.Theme.YourMate">

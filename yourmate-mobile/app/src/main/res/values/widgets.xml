@@ -1,11 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--  Text View  -->
     <style name="Widget.YourMate.TextView" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/body_text_color</item>
-        <item name="fontFamily">@font/poppins</item>
-        <item name="android:fontFamily">@font/poppins</item>
+        <item name="android:textAppearance">?textAppearanceBody2</item>
+        <item name="android:lineSpacingMultiplier">1.15</item>
     </style>
+    <!--  End Text View  -->
+
+    <!--  Circular Progress Bar  -->
+    <style name="Widget.YourMate.CircularProgressIndicator.Indeterminate" parent="Widget.MaterialComponents.CircularProgressIndicator">
+        <item name="android:indeterminate">true</item>
+        <item name="indicatorColor">?colorPrimary</item>
+        <item name="trackCornerRadius">4dp</item>
+    </style>
+    <!--  End Circular Progress Bar  -->
+
+    <!--  Text Input Layout Outlined  -->
+    <style name="Widget.YourMate.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopEnd">@dimen/medium_radius</item>
+        <item name="boxCornerRadiusTopStart">@dimen/medium_radius</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/medium_radius</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/medium_radius</item>
+        <item name="boxBackgroundColor">@color/color_background_text_input_layout</item>
+        <item name="boxStrokeColor">@color/color_stroke_text_input_layout</item>
+        <item name="hintEnabled">false</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.YourMate.TextInputLayout.OutlinedBox
+        </item>
+    </style>
+
+    <style name="Widget.YourMate.TextInputEditText.OutlinedBox" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:textAppearance">?textAppearanceBody2</item>
+        <item name="hintTextColor">@color/color_hint_edit_text</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="ThemeOverlay.YourMate.TextInputLayout.OutlinedBox" parent="">
+        <item name="editTextStyle">@style/Widget.YourMate.TextInputEditText.OutlinedBox</item>
+    </style>
+    <!--  End Text Input Layout Outlined  -->
 
 </resources>
