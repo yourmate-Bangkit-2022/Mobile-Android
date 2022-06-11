@@ -3,14 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/drawable/bg_chat_box.xml" value="0.3165" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/drawable/bg_chip_primary.xml" value="0.3165" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/drawable/bg_chip_white.xml" value="0.3165" />
+        <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/drawable/bg_container_rounded_primary.xml" value="0.3165" />
+        <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/drawable/bg_container_rounded_secondary.xml" value="0.3165" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/drawable/bg_container_rounded_white.xml" value="0.3165" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/drawable/bg_dialog.xml" value="0.3165" />
+        <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/drawable/bg_received_chat.xml" value="0.3165" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/drawable/bg_search_box.xml" value="0.3165" />
+        <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/drawable/bg_sent_chat.xml" value="0.3165" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/font-v26/poppins.xml" value="0.39166666666666666" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/font/poppins.xml" value="0.39166666666666666" />
-        <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/activity_chat.xml" value="0.36096014492753625" />
+        <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/activity_chat.xml" value="0.33" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/activity_home.xml" value="0.36096014492753625" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/activity_login.xml" value="0.36096014492753625" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/activity_main.xml" value="0.25" />
@@ -24,7 +29,10 @@
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/layout_item_friend_recommendation.xml" value="0.3625" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/layout_item_people.xml" value="0.3614583333333333" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/layout_item_place.xml" value="0.3614583333333333" />
+        <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/layout_item_received_chat.xml" value="0.3614583333333333" />
+        <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/layout_item_sent_chat.xml" value="0.3614583333333333" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/layout_loading_dialog.xml" value="0.36096014492753625" />
+        <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/received_chat_item.xml" value="0.3625" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/sent_chat_item.xml" value="0.36096014492753625" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/user_item.xml" value="0.36096014492753625" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3625" />

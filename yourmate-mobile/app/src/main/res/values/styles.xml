@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Style.YourMate.Text.Header.Page" parent="TextAppearance.YourMate.Headline6">
         <item name="android:textSize">18sp</item>
     </style>
@@ -20,4 +21,22 @@
         <item name="android:textColor">@color/gray_600</item>
         <item name="android:textSize">10sp</item>
     </style>
+
+    <!--  Circle Icon Button  -->
+    <style name="Style.YourMate.Button.UnelevatedButton.Circle.Icon" parent="Widget.MaterialComponents.Button.UnelevatedButton.Icon">
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconSize">24dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeOverlay.YourMate.Button.Circle</item>
+    </style>
+
+    <style name="ShapeOverlay.YourMate.Button.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+    <!--  End Circle Icon Button  -->
 </resources>
