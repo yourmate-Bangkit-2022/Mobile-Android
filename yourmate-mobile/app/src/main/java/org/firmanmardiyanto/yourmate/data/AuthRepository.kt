@@ -37,7 +37,6 @@ class AuthRepository @Inject constructor(
         }
     }
 
-
     override fun signUp(
         email: String,
         password: String,
@@ -47,10 +46,11 @@ class AuthRepository @Inject constructor(
             try {
                 emit(Resource.Loading())
                 auth.createUserWithEmailAndPassword(email, password).await()
-                val user = User(auth.currentUser?.uid!!, name, "online")
-                database.reference.child("users").child(auth.currentUser!!.uid).setValue(
-                    user
-                ).await()
+                val user = User(auth.currentUser?.uid!!, name, email, "online")
+                database.reference.child("users")
+                    .child(auth.currentUser!!.uid)
+                    .setValue(user)
+                    .await()
                 emit(Resource.Success(user))
             } catch (e: Exception) {
                 emit(Resource.Error(e.message ?: "Error"))

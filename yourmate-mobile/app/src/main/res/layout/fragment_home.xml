@@ -41,7 +41,7 @@
             android:text="Hi, Ade Prianto!"
             android:textAppearance="?textAppearanceHeadline6"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivProfilePicture"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_date" />
 

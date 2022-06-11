@@ -6,29 +6,34 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import org.firmanmardiyanto.yourmate.R
 import org.firmanmardiyanto.yourmate.adapters.ArticleAdapter
+import org.firmanmardiyanto.yourmate.adapters.FriendRecommendationAdapter
 import org.firmanmardiyanto.yourmate.adapters.PlaceAdapter
 import org.firmanmardiyanto.yourmate.data.Resource
 import org.firmanmardiyanto.yourmate.databinding.FragmentHomeBinding
 import org.firmanmardiyanto.yourmate.domain.model.Article
 import org.firmanmardiyanto.yourmate.domain.model.Place
+import org.firmanmardiyanto.yourmate.domain.model.User
 import org.firmanmardiyanto.yourmate.item_decoration.SpacingItemDecoration
+import org.firmanmardiyanto.yourmate.utils.CalendarUtils
 import org.firmanmardiyanto.yourmate.viewmodels.AuthViewModel
+import java.util.*
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-//    private val authViewModel: AuthViewModel by activityViewModels()
+    private val authViewModel: AuthViewModel by activityViewModels()
 
-    private val homeViewModel by lazy { ViewModelProvider(this).get(HomeViewModel::class.java) }
+    private val homeViewModel: HomeViewModel by viewModels()
 
     private var _binding: FragmentHomeBinding? = null
 
+    private val friendRecommendationAdapter by lazy { FriendRecommendationAdapter() }
     private val articleAdapter by lazy { ArticleAdapter() }
     private val placeAdapter by lazy { PlaceAdapter() }
 
@@ -50,32 +55,35 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUI()
+        initFriend()
         initArticle()
         initPlace()
     }
 
     private fun initUI() {
         with(binding) {
-//            authViewModel.currentUser.observe(viewLifecycleOwner) {
-//                when (it) {
-//                    is Resource.Error -> Unit
-//                    is Resource.Loading -> Unit
-//                    is Resource.Success -> {
-//                        Glide.with(requireContext())
-//                            .load(it.data?.profileImage)
-//                            .error(R.drawable.ic_image)
-//                            .into(ivProfilePicture)
-//                    }
-//                }
-//            }
+            tvDate.text = CalendarUtils.formatCalendarToString(
+                Calendar.getInstance(),
+                CalendarUtils.DATE_MONTH_YEAR_READABLE
+            )
 
-            Glide.with(requireContext())
-                .load("https://firebasestorage.googleapis.com/v0/b/yourmate-406e4.appspot.com/o/default-profile-picture.png?alt=media&token=7a104a65-ed48-44e3-9f90-f17442719416")
-                .error(R.drawable.ic_image)
-                .into(ivProfilePicture)
+            authViewModel.currentUser.observe(viewLifecycleOwner) {
+                when (it) {
+                    is Resource.Error -> Unit
+                    is Resource.Loading -> Unit
+                    is Resource.Success -> {
+                        Glide.with(requireContext())
+                            .load(it.data?.profileImage)
+                            .error(R.drawable.ic_image)
+                            .into(ivProfilePicture)
+
+                        tvName.text = "Hi, ${it.data?.name}!"
+                    }
+                }
+            }
 
             with(rvPeople) {
-                adapter = articleAdapter
+                adapter = friendRecommendationAdapter
                 layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 addItemDecoration(spacingItemDecoration)
@@ -95,6 +103,10 @@ class HomeFragment : Fragment() {
                 addItemDecoration(spacingItemDecoration)
             }
         }
+    }
+
+    private fun initFriend() {
+        friendRecommendationAdapter.submitList(DUMMY_USER)
     }
 
     private fun initArticle() {
@@ -189,6 +201,29 @@ class HomeFragment : Fragment() {
                 "Kampoeng Kopi Banaran, sebuah agro wisata perkebunan kopi di Kabupaten Semarang. Tempat wisata ini memiliki luas 462 hektar yang sebagian dijadikan resort dan tempat wisata. Lokasinya berada di Areal Perkebunan Kopi Kebun Getas Afdeling Assinan tepatnya Jl. Raya Semarang ? Solo Km. 35. Lokasi Kampoeng Kopi Banaran yang berada di ketinggian 480 ? 600m dpl membuat suhu udara disana sejuk antara 23?C ? 27?C. Jadi cocok banget buat pelesir mencari udara dingin dan segar dengan pemandangan indah. Menghilangkan penat kesibukan Kota besar, di tengah perkebunan yang asri.",
                 4.3,
                 "Taman Hiburan"
+            ),
+        )
+
+        private val DUMMY_USER = listOf(
+            User(
+                "1",
+                "Ade Prianto",
+            ),
+            User(
+                "2",
+                "Ade Prianto",
+            ),
+            User(
+                "3",
+                "Ade Prianto",
+            ),
+            User(
+                "4",
+                "Ade Prianto",
+            ),
+            User(
+                "5",
+                "Ade Prianto",
             ),
         )
     }
