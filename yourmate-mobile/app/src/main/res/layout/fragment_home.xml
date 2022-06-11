@@ -54,12 +54,14 @@
             app:constraint_referenced_ids="view_bg_hero" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:id="@+id/ivProfilePicture"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:civ_border_color="@color/white"
             app:civ_border_width="1dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
