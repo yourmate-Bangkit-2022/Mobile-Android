@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_chat"
-        android:name="org.firmanmardiyanto.yourmate.home.ui.dashboard.DashboardFragment"
+        android:name="org.firmanmardiyanto.yourmate.home.ui.dashboard.ChatFragment"
         android:label="Messages"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_chat" />
 
     <fragment
         android:id="@+id/navigation_contact"
