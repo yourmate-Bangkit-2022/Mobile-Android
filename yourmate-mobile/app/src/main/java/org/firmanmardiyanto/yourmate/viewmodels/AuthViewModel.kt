@@ -3,10 +3,13 @@ package org.firmanmardiyanto.yourmate.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.firmanmardiyanto.yourmate.domain.usecase.AuthUseCase
+import javax.inject.Inject
 
-class AuthViewModel(private val authUseCase: AuthUseCase) : ViewModel() {
+@HiltViewModel
+class AuthViewModel @Inject constructor(private val authUseCase: AuthUseCase) : ViewModel() {
     val currentUser = authUseCase.getCurrentUser().asLiveData()
 
     fun login(email: String, password: String) =

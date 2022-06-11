@@ -1,4 +1,4 @@
-package org.firmanmardiyanto.yourmate.di
+package org.firmanmardiyanto.yourmate.di.koin
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase

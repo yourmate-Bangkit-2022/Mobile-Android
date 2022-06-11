@@ -1,24 +1,26 @@
-package org.firmanmardiyanto.yourmate
+package org.firmanmardiyanto.yourmate.splash_screen
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import org.firmanmardiyanto.yourmate.auth.login.LoginActivity
 import org.firmanmardiyanto.yourmate.data.Resource
-import org.firmanmardiyanto.yourmate.databinding.ActivityMainBinding
+import org.firmanmardiyanto.yourmate.databinding.ActivitySplashScreenBinding
 import org.firmanmardiyanto.yourmate.home.HomeActivity
 import org.firmanmardiyanto.yourmate.viewmodels.AuthViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class SplashScreenActivity : AppCompatActivity() {
 
-    private val authViewModel: AuthViewModel by viewModel()
-    private lateinit var binding: ActivityMainBinding
+    private val authViewModel: AuthViewModel by viewModels()
+    private lateinit var binding: ActivitySplashScreenBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         authViewModel.currentUser.observe(this) {

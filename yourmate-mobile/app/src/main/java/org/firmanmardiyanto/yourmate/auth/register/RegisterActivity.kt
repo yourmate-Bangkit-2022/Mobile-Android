@@ -9,9 +9,11 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import dagger.hilt.android.AndroidEntryPoint
 import org.firmanmardiyanto.yourmate.R
 import org.firmanmardiyanto.yourmate.base.LoadingDialog
 import org.firmanmardiyanto.yourmate.data.Resource
@@ -20,12 +22,12 @@ import org.firmanmardiyanto.yourmate.home.HomeActivity
 import org.firmanmardiyanto.yourmate.utils.extensions.getColorFromAttr
 import org.firmanmardiyanto.yourmate.utils.extensions.showToast
 import org.firmanmardiyanto.yourmate.viewmodels.AuthViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-    private val authViewModel: AuthViewModel by viewModel()
+    private val authViewModel: AuthViewModel by viewModels()
 
     private val loadingDialog by lazy { LoadingDialog.create() }
 

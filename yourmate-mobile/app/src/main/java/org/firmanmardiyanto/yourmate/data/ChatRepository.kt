@@ -11,8 +11,12 @@ import org.firmanmardiyanto.yourmate.domain.model.Message
 import org.firmanmardiyanto.yourmate.domain.model.User
 import org.firmanmardiyanto.yourmate.domain.repository.IChatRepository
 import java.sql.Date
+import javax.inject.Inject
 
-class ChatRepository(private val auth: FirebaseAuth, private val database: FirebaseDatabase) :
+class ChatRepository @Inject constructor(
+    private val auth: FirebaseAuth,
+    private val database: FirebaseDatabase
+) :
     IChatRepository {
     override fun getMessagesWith(userId: String): Flow<Resource<List<Message>>> = flow {
         try {

@@ -4,8 +4,9 @@ import kotlinx.coroutines.flow.Flow
 import org.firmanmardiyanto.yourmate.data.Resource
 import org.firmanmardiyanto.yourmate.domain.model.User
 import org.firmanmardiyanto.yourmate.domain.repository.IAuthRepository
+import javax.inject.Inject
 
-class AuthInteractor(private val authRepository: IAuthRepository) : AuthUseCase {
+class AuthInteractor @Inject constructor(private val authRepository: IAuthRepository) : AuthUseCase {
     override fun signIn(
         email: String,
         password: String

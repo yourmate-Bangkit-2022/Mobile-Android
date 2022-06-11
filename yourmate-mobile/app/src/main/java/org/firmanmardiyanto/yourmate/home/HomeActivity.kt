@@ -1,17 +1,19 @@
 package org.firmanmardiyanto.yourmate.home
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import dagger.hilt.android.AndroidEntryPoint
 import org.firmanmardiyanto.yourmate.R
 import org.firmanmardiyanto.yourmate.databinding.ActivityHomeBinding
 import org.firmanmardiyanto.yourmate.viewmodels.AuthViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
-    private val authViewModel: AuthViewModel by viewModel()
+    private val authViewModel: AuthViewModel by viewModels()
     private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

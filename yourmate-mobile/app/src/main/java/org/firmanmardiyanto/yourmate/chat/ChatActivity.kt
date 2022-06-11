@@ -3,18 +3,20 @@ package org.firmanmardiyanto.yourmate.chat
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import org.firmanmardiyanto.yourmate.adapters.MessageAdapter
 import org.firmanmardiyanto.yourmate.data.Resource
 import org.firmanmardiyanto.yourmate.databinding.ActivityChatBinding
 import org.firmanmardiyanto.yourmate.domain.model.User
 import org.firmanmardiyanto.yourmate.viewmodels.ChatViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class ChatActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChatBinding
-    private val chatViewModel: ChatViewModel by viewModel()
+    private val chatViewModel: ChatViewModel by viewModels()
     private lateinit var selectedContact: User
     private lateinit var messageAdapter: MessageAdapter
 

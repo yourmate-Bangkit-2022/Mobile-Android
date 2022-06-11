@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
 import org.firmanmardiyanto.yourmate.R
 import org.firmanmardiyanto.yourmate.adapters.ArticleAdapter
 import org.firmanmardiyanto.yourmate.adapters.PlaceAdapter
@@ -19,6 +20,7 @@ import org.firmanmardiyanto.yourmate.domain.model.Place
 import org.firmanmardiyanto.yourmate.item_decoration.SpacingItemDecoration
 import org.firmanmardiyanto.yourmate.viewmodels.AuthViewModel
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
 //    private val authViewModel: AuthViewModel by activityViewModels()

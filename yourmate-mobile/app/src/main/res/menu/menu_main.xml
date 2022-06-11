@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="org.firmanmardiyanto.yourmate.MainActivity">
+    tools:context="org.firmanmardiyanto.yourmate.splash_screen.SplashScreenActivity">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

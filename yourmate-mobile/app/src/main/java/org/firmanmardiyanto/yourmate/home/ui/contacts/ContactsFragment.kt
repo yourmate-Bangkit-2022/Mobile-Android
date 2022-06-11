@@ -8,16 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import org.firmanmardiyanto.yourmate.adapters.ContactsAdapter
 import org.firmanmardiyanto.yourmate.chat.ChatActivity
 import org.firmanmardiyanto.yourmate.data.Resource
 import org.firmanmardiyanto.yourmate.databinding.FragmentContactsBinding
 import org.firmanmardiyanto.yourmate.viewmodels.ContactsViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class ContactsFragment : Fragment() {
-    private val contactsViewModel: ContactsViewModel by viewModel()
+    private val contactsViewModel: ContactsViewModel by viewModels()
     private var _binding: FragmentContactsBinding? = null
     private val binding get() = _binding!!
 

@@ -9,8 +9,12 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
 import org.firmanmardiyanto.yourmate.domain.model.User
 import org.firmanmardiyanto.yourmate.domain.repository.IAuthRepository
+import javax.inject.Inject
 
-class AuthRepository(private val auth: FirebaseAuth, private val database: FirebaseDatabase) :
+class AuthRepository @Inject constructor(
+    private val auth: FirebaseAuth,
+    private val database: FirebaseDatabase
+) :
     IAuthRepository {
     override fun signIn(
         email: String,

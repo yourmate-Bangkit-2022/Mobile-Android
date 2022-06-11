@@ -9,9 +9,11 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import dagger.hilt.android.AndroidEntryPoint
 import org.firmanmardiyanto.yourmate.R
 import org.firmanmardiyanto.yourmate.auth.register.RegisterActivity
 import org.firmanmardiyanto.yourmate.data.Resource
@@ -19,11 +21,11 @@ import org.firmanmardiyanto.yourmate.databinding.ActivityLoginBinding
 import org.firmanmardiyanto.yourmate.home.HomeActivity
 import org.firmanmardiyanto.yourmate.utils.extensions.getColorFromAttr
 import org.firmanmardiyanto.yourmate.viewmodels.AuthViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
-    private val authViewModel: AuthViewModel by viewModel()
+    private val authViewModel: AuthViewModel by viewModels()
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

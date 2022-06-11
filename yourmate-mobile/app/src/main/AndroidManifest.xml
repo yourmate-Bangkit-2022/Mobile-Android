@@ -4,7 +4,7 @@
     package="org.firmanmardiyanto.yourmate">
 
     <application
-        android:name=".MyApplication"
+        android:name=".app.YourMateApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -33,7 +33,7 @@
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.YourMate.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".splash_screen.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/Theme.YourMate.NoActionBar">
             <intent-filter>
