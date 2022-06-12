@@ -11,7 +11,6 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.firmanmardiyanto.yourmate.data.api.ChatApi
-import org.firmanmardiyanto.yourmate.data.api.TestApi
 import org.firmanmardiyanto.yourmate.data.api.YourmateApi
 import org.firmanmardiyanto.yourmate.data.repository.*
 import org.firmanmardiyanto.yourmate.di.qualifier.FirebaseCloudMessagingRetrofit
@@ -38,6 +37,9 @@ abstract class DataModule {
     @Binds
     abstract fun bindArticleRepository(articleRepository: ArticleRepository): IArticleRepository
 
+    @Binds
+    abstract fun bindUserRepository(userRepository: UserRepository): IUserRepository
+
     companion object {
         @Provides
         fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
@@ -51,7 +53,7 @@ abstract class DataModule {
         @Provides
         fun provideRetrofit(): Retrofit {
             return Retrofit.Builder()
-                .baseUrl("http://localhost:1337/api/")
+                .baseUrl("http://192.168.172.216:1337/api/")
                 .client(
                     OkHttpClient.Builder()
                         .readTimeout(60, TimeUnit.SECONDS)

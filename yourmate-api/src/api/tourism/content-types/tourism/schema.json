@@ -16,12 +16,9 @@
       "type": "string"
     },
     "imageUrl": {
-      "type": "string"
+      "type": "text"
     },
     "location": {
-      "type": "string"
-    },
-    "desc": {
       "type": "string"
     },
     "tourism_categories": {
@@ -35,6 +32,9 @@
     },
     "rating": {
       "type": "float"
+    },
+    "desc": {
+      "type": "text"
     }
   }
 }

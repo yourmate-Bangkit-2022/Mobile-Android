@@ -24,4 +24,7 @@ abstract class DomainModule {
 
     @Binds
     abstract fun bindArticleInteractor(articleInteractor: ArticleInteractor): ArticleUseCase
+
+    @Binds
+    abstract fun bindUserInteractor(userInteractor: UserInteractor): UserUseCase
 }

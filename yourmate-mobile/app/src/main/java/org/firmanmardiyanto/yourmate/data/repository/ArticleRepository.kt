@@ -23,7 +23,7 @@ class ArticleRepository @Inject constructor(
                         id = it.id.toInt(),
                         title = it.attributes.title,
                         body = it.attributes.body,
-                        createdAt = it.attributes.createdAt,
+                        publishedAt = it.attributes.publishedAt,
                         imageUrl = it.attributes.imageUrl,
                     )
                 }

@@ -63,14 +63,18 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "avatar": {
-      "allowedTypes": [
-        "images"
-      ],
-      "type": "media",
-      "multiple": false
-    },
     "fcmToken": {
+      "type": "string"
+    },
+    "recommendations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user"
+    },
+    "profileImage": {
+      "type": "string"
+    },
+    "name": {
       "type": "string"
     }
   }

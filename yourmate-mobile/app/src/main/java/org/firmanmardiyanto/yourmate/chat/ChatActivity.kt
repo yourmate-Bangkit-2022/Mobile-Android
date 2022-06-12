@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.postDelayed
+import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -135,6 +135,10 @@ class ChatActivity : AppCompatActivity() {
                     is Resource.Loading -> Unit
                     is Resource.Success -> {
                         chatsResponse.data?.let {
+                            val negativeStatus = evalNegativeMessage(it)
+                            setNegativeStatus(negativeStatus)
+
+                            Log.d(TAG, "loadMessages: $negativeStatus")
                             messageAdapter.submitList(it)
                             binding.rvChat.smoothScrollToPosition(messageAdapter.itemCount)
                         }
@@ -144,6 +148,35 @@ class ChatActivity : AppCompatActivity() {
                         Log.e("ChatActivity", "Error ${chatsResponse.message}")
                     }
                 }
+            }
+        }
+    }
+
+    private fun evalNegativeMessage(messages: List<Message>): Int {
+        // TODO: implement ML to determine negative status
+        val negativeWords = arrayOf("sedih", "marah", "gila", "setan", "babi")
+        val count = messages.count {
+            negativeWords.any { word -> it.text?.contains(word) ?: false }
+        }
+        return count
+    }
+
+    private fun setNegativeStatus(status: Int) {
+        when (status) {
+            in 0..2 -> {
+                binding.ivNegativeStatus.setImageResource(R.drawable.ic_smile)
+                binding.ivNegativeStatus.setColorFilter(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.green_700
+                    )
+                )
+            }
+            else -> {
+                binding.ivNegativeStatus.setImageResource(R.drawable.ic_very_dissatisfied)
+                binding.ivNegativeStatus.setColorFilter(
+                    ContextCompat.getColor(this, R.color.red_700)
+                )
             }
         }
     }
