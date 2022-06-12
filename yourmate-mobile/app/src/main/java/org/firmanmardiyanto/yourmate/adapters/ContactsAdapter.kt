@@ -12,6 +12,8 @@ import org.firmanmardiyanto.yourmate.domain.model.User
 
 class ContactsAdapter : ListAdapter<User, ContactsAdapter.ContactViewHolder>(UserDiffUtil()) {
 
+    private var onClickListener: ((User) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
         val binding =
             LayoutItemContactBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -24,10 +26,16 @@ class ContactsAdapter : ListAdapter<User, ContactsAdapter.ContactViewHolder>(Use
         }
     }
 
-    class ContactViewHolder(private val binding: LayoutItemContactBinding) :
+    fun setOnClickListener(action: (User) -> Unit) = this.also { it.onClickListener = action }
+
+    inner class ContactViewHolder(private val binding: LayoutItemContactBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) {
             with(binding) {
+                root.setOnClickListener {
+                    onClickListener?.invoke(user)
+                }
+
                 Glide.with(itemView.context)
                     .load(user.profileImage)
                     .error(R.drawable.ic_image)

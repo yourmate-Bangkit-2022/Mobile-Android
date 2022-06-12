@@ -1,5 +1,6 @@
 package org.firmanmardiyanto.yourmate.home.ui.contacts
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import org.firmanmardiyanto.yourmate.adapters.ContactsAdapter
+import org.firmanmardiyanto.yourmate.chat.ChatActivity
 import org.firmanmardiyanto.yourmate.data.Resource
 import org.firmanmardiyanto.yourmate.databinding.FragmentContactsBinding
 import org.firmanmardiyanto.yourmate.item_decoration.SpacingItemDecoration
@@ -25,7 +27,14 @@ class ContactsFragment : Fragment() {
 
     private val spacingItemDecoration by lazy { SpacingItemDecoration(32) }
 
-    private val contactsAdapter by lazy { ContactsAdapter() }
+    private val contactsAdapter by lazy {
+        ContactsAdapter().setOnClickListener {
+            val intent = Intent(requireContext(), ChatActivity::class.java).apply {
+                putExtra(ChatActivity.EXTRA_USER, it)
+            }
+            startActivity(intent)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

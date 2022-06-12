@@ -2,103 +2,113 @@ package org.firmanmardiyanto.yourmate.chat
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.messaging.FirebaseMessaging
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.tasks.await
+import org.firmanmardiyanto.yourmate.R
 import org.firmanmardiyanto.yourmate.adapters.MessageAdapter
 import org.firmanmardiyanto.yourmate.data.Resource
 import org.firmanmardiyanto.yourmate.databinding.ActivityChatBinding
 import org.firmanmardiyanto.yourmate.domain.model.User
+import org.firmanmardiyanto.yourmate.item_decoration.SpacingItemDecoration
+import org.firmanmardiyanto.yourmate.utils.extensions.showToast
 import org.firmanmardiyanto.yourmate.viewmodels.ChatViewModel
 
 private const val TAG = "ChatActivity"
 
 @AndroidEntryPoint
 class ChatActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityChatBinding
     private val chatViewModel: ChatViewModel by viewModels()
+
+    private lateinit var binding: ActivityChatBinding
+
+    private val spacingItemDecoration by lazy { SpacingItemDecoration(32) }
+
+    private val messageAdapter: MessageAdapter by lazy { MessageAdapter() }
+
     private lateinit var selectedContact: User
-    private lateinit var messageAdapter: MessageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        selectedContact = intent.getParcelableExtra(EXTRA_USER)!!
+
         initUI()
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//        selectedContact = intent.getParcelableExtra(EXTRA_USER)!!
-//
-//        messageAdapter = MessageAdapter()
-//        binding.rvChats.layoutManager =
-//            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-//
-//        binding.rvChats.adapter = messageAdapter
-//
-//        getChats()
-//
-//        addListener()
+        loadMessages()
     }
 
     private fun initUI() {
-        lifecycleScope.launchWhenStarted {
-            val token = FirebaseMessaging.getInstance().token.await()
-            Log.d(TAG, "initUI: $token")
+        with(binding) {
+            flBackButton.setOnClickListener {
+                finish()
+            }
+
+            Glide.with(this@ChatActivity)
+                .load(selectedContact.profileImage)
+                .error(R.drawable.ic_image)
+                .into(ivProfilePicture)
+
+            tvName.text = selectedContact.name
+
+            with(rvChat) {
+                adapter = messageAdapter
+                layoutManager = LinearLayoutManager(this@ChatActivity)
+                addItemDecoration(spacingItemDecoration)
+            }
+
+            btnSend.setOnClickListener {
+                sendMessage()
+            }
         }
     }
 
-    private fun getChats() {
-//        selectedContact.let { user ->
-//            chatViewModel.getMessagesWith(user.uid!!).observe(this) { chatsResponse ->
-//                when (chatsResponse) {
-//                    is Resource.Loading -> {
-//                        binding.progressBar.visibility = android.view.View.VISIBLE
-//                    }
-//                    is Resource.Success -> {
-//                        binding.progressBar.visibility = android.view.View.GONE
-//                        chatsResponse.data?.let {
-//                            messageAdapter.submitList(it)
-//                        }
-//                    }
-//                    is Resource.Error -> {
-//                        binding.progressBar.visibility = android.view.View.GONE
-//                        Toast.makeText(this, "Error ${chatsResponse.message}", Toast.LENGTH_SHORT)
-//                            .show()
-//                        Log.d("ChatActivity", "Error ${chatsResponse.message}")
-//                    }
-//                }
-//            }
-//        }
+    private fun sendMessage() {
+        with(binding) {
+            if (!etChat.text.isNullOrBlank()) {
+                chatViewModel.sendMessageTo(selectedContact.uid!!, etChat.text.toString())
+                    .observe(this@ChatActivity) {
+                        when (it) {
+                            is Resource.Error -> {
+                                btnSend.isEnabled = true
+                                showToast(it.message)
+                            }
+                            is Resource.Loading -> {
+                                btnSend.isEnabled = false
+                            }
+                            is Resource.Success -> {
+                                btnSend.isEnabled = true
+                                etChat.text = null
+                                messageAdapter.addItem(it.data!!)
+                            }
+                        }
+                    }
+            }
+        }
     }
 
-    private fun addListener() {
-//        binding.btnSend.setOnClickListener {
-//            val message = binding.etMessage.text.toString()
-//            if (message.isNotEmpty()) {
-//                chatViewModel.sendMessageTo(selectedContact.uid!!, message).observe(this) {
-//                    when (it) {
-//                        is Resource.Success -> {
-//                            binding.etMessage.text.clear()
-//                            binding.etMessage.setText("")
-//                            binding.btnSend.isEnabled = true
-//                            getChats()
-//                        }
-//                        is Resource.Error -> {
-//                            Toast.makeText(this, "Error ${it.message}", Toast.LENGTH_SHORT).show()
-//                            binding.btnSend.isEnabled = true
-//
-//                        }
-//                        is Resource.Loading -> {
-//                            binding.btnSend.isEnabled = false
-//                        }
-//                    }
-//                }
-//            }
-//        }
+    private fun loadMessages() {
+        selectedContact.let { user ->
+            chatViewModel.getMessagesWith(user.uid!!).observe(this) { chatsResponse ->
+                when (chatsResponse) {
+                    is Resource.Loading -> {
+
+                    }
+                    is Resource.Success -> {
+                        chatsResponse.data?.let {
+                            messageAdapter.submitList(it)
+                        }
+                    }
+                    is Resource.Error -> {
+                        showToast(chatsResponse.message)
+                        Log.e("ChatActivity", "Error ${chatsResponse.message}")
+                    }
+                }
+            }
+        }
     }
 
     companion object {

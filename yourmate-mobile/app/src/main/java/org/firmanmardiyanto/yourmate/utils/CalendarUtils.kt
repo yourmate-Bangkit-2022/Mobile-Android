@@ -29,6 +29,12 @@ abstract class CalendarUtils {
          * */
         const val DATE_MONTH_YEAR_WITH_TIME_READABLE = "dd MMMM yyyy, HH:mm"
 
+        /**
+         * Represent date as HOUR:MINUTE in human readable representation
+         * Example: 13:00
+         * */
+        const val TIME_READABLE = "HH:mm"
+
         fun formatCalendarToString(calendar: Calendar, pattern: String = "yyyy-MM-dd"): String {
             val format = SimpleDateFormat(pattern, Locale("en", "US"))
             return format.format(calendar.timeInMillis)
