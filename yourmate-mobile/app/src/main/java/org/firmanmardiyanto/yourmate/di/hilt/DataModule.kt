@@ -11,6 +11,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.firmanmardiyanto.yourmate.data.api.ChatApi
+import org.firmanmardiyanto.yourmate.data.api.TestApi
 import org.firmanmardiyanto.yourmate.data.repository.AuthRepository
 import org.firmanmardiyanto.yourmate.data.repository.ChatRepository
 import org.firmanmardiyanto.yourmate.data.repository.ContactRepository
@@ -45,6 +46,24 @@ abstract class DataModule {
         fun provideFirebaseMessaging(): FirebaseMessaging = FirebaseMessaging.getInstance()
 
         @Provides
+        fun provideRetrofit(): Retrofit {
+            return Retrofit.Builder()
+                .baseUrl("https://fcm.googleapis.com/")
+                .client(
+                    OkHttpClient.Builder()
+                        .readTimeout(60, TimeUnit.SECONDS)
+                        .connectTimeout(60, TimeUnit.SECONDS)
+                        .addInterceptor(
+                            HttpLoggingInterceptor()
+                                .setLevel(HttpLoggingInterceptor.Level.BODY)
+                        )
+                        .build()
+                )
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+
+        @Provides
         @FirebaseCloudMessagingRetrofit
         fun provideFirebaseCloudMessagingRetrofit(): Retrofit {
             return Retrofit.Builder()
@@ -74,5 +93,8 @@ abstract class DataModule {
         @Provides
         fun provideChatApi(@FirebaseCloudMessagingRetrofit retrofit: Retrofit): ChatApi =
             retrofit.create(ChatApi::class.java)
+
+        @Provides
+        fun provideTestApi(retrofit: Retrofit): TestApi = retrofit.create(TestApi::class.java)
     }
 }
