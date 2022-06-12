@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tourisms",
+  "info": {
+    "singularName": "tourism",
+    "pluralName": "tourisms",
+    "displayName": "Tourism",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "imageUrl": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "string"
+    },
+    "rating": {
+      "type": "string"
+    },
+    "tourism_categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tourism-category.tourism-category",
+      "inversedBy": "tourisms"
+    },
+    "category": {
+      "type": "string"
+    }
+  }
+}
