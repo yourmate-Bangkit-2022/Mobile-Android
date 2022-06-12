@@ -1,46 +1,31 @@
 {
   "name": "yourmate-api",
-  "version": "1.0.0",
-  "description": "Yourmate Bangkit Capstone Project.",
-  "main": "index.js",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Strapi application",
   "scripts": {
-    "lint": "npx eslint ./src",
-    "dev": "nodemon",
-    "migrate": "node-pg-migrate",
-    "build": "webpack --mode=production --config webpack.config.server.js",
-    "start": "node dist/server/server.generated.js"
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
   },
-  "keywords": [
-    "backend",
-    "hapi",
-    "dicoding"
-  ],
-  "author": "www.github.com/firmanmardiyanto",
-  "license": "ISC",
   "dependencies": {
-    "@babel/core": "^7.18.0",
-    "@babel/preset-env": "^7.18.0",
-    "@hapi/hapi": "^20.2.2",
-    "@hapi/inert": "^6.0.5",
-    "@hapi/jwt": "^2.1.1",
-    "babel-loader": "^8.2.5",
-    "bcrypt": "^5.0.1",
-    "hapi-error": "^2.3.0",
-    "joi": "^17.6.0",
-    "nanoid": "^3.3.4",
-    "node-pg-migrate": "^6.2.1",
+    "@strapi-community/strapi-provider-upload-google-cloud-storage": "^4.1.7",
+    "@strapi/plugin-i18n": "4.1.12",
+    "@strapi/plugin-users-permissions": "4.1.12",
+    "@strapi/strapi": "4.1.12",
+    "better-sqlite3": "7.4.6",
     "pg": "^8.7.3"
   },
-  "devDependencies": {
-    "dotenv": "^16.0.1",
-    "dotenv-webpack": "^7.1.0",
-    "eslint": "^8.16.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "nodemon": "^2.0.16",
-    "webpack": "^5.72.1",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.9.0",
-    "webpack-node-externals": "^3.0.0"
-  }
+  "author": {
+    "name": "A Strapi developer"
+  },
+  "strapi": {
+    "uuid": "593a4f31-d3ac-46ba-82e2-0bd2f6eb4ce1"
+  },
+  "engines": {
+    "node": ">=12.x.x <=16.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
 }
