@@ -134,12 +134,11 @@ class ChatActivity : AppCompatActivity() {
                 when (chatsResponse) {
                     is Resource.Loading -> Unit
                     is Resource.Success -> {
-                        chatsResponse.data?.let {
-                            val negativeStatus = evalNegativeMessage(it)
+                        chatsResponse.data?.let { messages ->
+                            val negativeStatus =
+                                evalNegativeMessage(messages.filter { it.from !== "me" })
                             setNegativeStatus(negativeStatus)
-
-                            Log.d(TAG, "loadMessages: $negativeStatus")
-                            messageAdapter.submitList(it)
+                            messageAdapter.submitList(messages)
                             binding.rvChat.smoothScrollToPosition(messageAdapter.itemCount)
                         }
                     }
