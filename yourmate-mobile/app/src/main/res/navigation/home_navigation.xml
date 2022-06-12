@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_chat"
-        android:name="org.firmanmardiyanto.yourmate.home.ui.dashboard.ChatFragment"
+        android:name="org.firmanmardiyanto.yourmate.home.ui.chat.ChatFragment"
         android:label="Messages"
         tools:layout="@layout/fragment_chat" />
 

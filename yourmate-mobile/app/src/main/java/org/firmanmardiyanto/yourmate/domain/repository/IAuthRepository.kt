@@ -14,4 +14,8 @@ interface IAuthRepository {
     fun getCurrentUser(): Flow<Resource<User>>
 
     fun sendResetPassword(email: String): Flow<Resource<Boolean>>
+
+    fun updateMessagingToken(token: String): Flow<Resource<Boolean>>
+
+    fun getCurrentMessagingToken(): Flow<Resource<String>>
 }

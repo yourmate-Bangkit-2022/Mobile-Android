@@ -7,7 +7,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.firmanmardiyanto.yourmate.R
 import org.firmanmardiyanto.yourmate.databinding.ActivityHomeBinding
 import org.firmanmardiyanto.yourmate.home.ui.contacts.ContactsFragment
-import org.firmanmardiyanto.yourmate.home.ui.dashboard.ChatFragment
+import org.firmanmardiyanto.yourmate.home.ui.chat.ChatFragment
 import org.firmanmardiyanto.yourmate.home.ui.home.HomeFragment
 import org.firmanmardiyanto.yourmate.home.ui.profile.ProfileFragment
 
