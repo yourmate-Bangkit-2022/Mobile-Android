@@ -10,6 +10,6 @@ import javax.inject.Inject
 class ChatViewModel @Inject constructor(private val chatUseCase: ChatUseCase) : ViewModel() {
     fun getAllChats() = chatUseCase.getAllChats().asLiveData()
     fun getMessagesWith(userId: String) = chatUseCase.getMessagesWith(userId).asLiveData()
-    fun sendMessageTo(userId: String, message: String) =
-        chatUseCase.sendMessageTo(userId, message).asLiveData()
+    fun sendMessageTo(userId: String, message: String, messagingToken: String) =
+        chatUseCase.sendMessageTo(userId, message, messagingToken).asLiveData()
 }

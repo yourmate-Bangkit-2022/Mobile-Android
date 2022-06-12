@@ -2,17 +2,16 @@ package org.firmanmardiyanto.yourmate.services
 
 import android.content.Intent
 import android.util.Log
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
+import org.firmanmardiyanto.yourmate.domain.model.Message
 
 private const val TAG = "YourMateFirebaseMessagi"
 
 class YourMateFirebaseMessagingService : FirebaseMessagingService() {
 
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
+    private val broadcastManager by lazy { LocalBroadcastManager.getInstance(this) }
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
@@ -21,15 +20,28 @@ class YourMateFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
-        Log.d(TAG, "onMessageReceived: ${message.data}")
+        val msg = Message(
+            text = message.data["message"],
+            timestamp = System.currentTimeMillis(),
+            from = "you"
+        )
+        broadcastMessage(msg)
+    }
+
+    private fun broadcastMessage(message: Message) {
+        val intent = Intent(RECEIVED_MESSAGE_ACTION).apply {
+            putExtra(EXTRA_MESSAGE, message)
+        }
+        broadcastManager.sendBroadcast(intent)
     }
 
     override fun onTaskRemoved(rootIntent: Intent?) {
         super.onTaskRemoved(rootIntent)
     }
 
-    override fun onDestroy() {
-        coroutineScope.cancel()
-        super.onDestroy()
+    companion object {
+        const val RECEIVED_MESSAGE_ACTION = "RECEIVED_MESSAGE_ACTION"
+        const val EXTRA_MESSAGE = "EXTRA_MESSAGE"
     }
+
 }

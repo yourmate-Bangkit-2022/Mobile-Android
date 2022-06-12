@@ -1,9 +1,14 @@
 package org.firmanmardiyanto.yourmate.chat
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
@@ -11,8 +16,10 @@ import org.firmanmardiyanto.yourmate.R
 import org.firmanmardiyanto.yourmate.adapters.MessageAdapter
 import org.firmanmardiyanto.yourmate.data.Resource
 import org.firmanmardiyanto.yourmate.databinding.ActivityChatBinding
+import org.firmanmardiyanto.yourmate.domain.model.Message
 import org.firmanmardiyanto.yourmate.domain.model.User
 import org.firmanmardiyanto.yourmate.item_decoration.SpacingItemDecoration
+import org.firmanmardiyanto.yourmate.services.YourMateFirebaseMessagingService
 import org.firmanmardiyanto.yourmate.utils.extensions.showToast
 import org.firmanmardiyanto.yourmate.viewmodels.ChatViewModel
 
@@ -28,6 +35,20 @@ class ChatActivity : AppCompatActivity() {
 
     private val messageAdapter: MessageAdapter by lazy { MessageAdapter() }
 
+    private val broadcastReceiver by lazy {
+        object : BroadcastReceiver() {
+            override fun onReceive(content: Context?, intent: Intent?) {
+                try {
+                    val message =
+                        intent?.getParcelableExtra<Message>(YourMateFirebaseMessagingService.EXTRA_MESSAGE)
+                    messageAdapter.addItem(message!!)
+                } catch (e: Exception) {
+                    Log.e(TAG, "onReceive: error received message", e)
+                }
+            }
+        }
+    }
+
     private lateinit var selectedContact: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,9 +60,14 @@ class ChatActivity : AppCompatActivity() {
 
         initUI()
         loadMessages()
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+            broadcastReceiver,
+            IntentFilter(YourMateFirebaseMessagingService.RECEIVED_MESSAGE_ACTION)
+        )
     }
 
-    private fun initUI() {
+    fun initUI() {
         with(binding) {
             flBackButton.setOnClickListener {
                 finish()
@@ -69,7 +95,11 @@ class ChatActivity : AppCompatActivity() {
     private fun sendMessage() {
         with(binding) {
             if (!etChat.text.isNullOrBlank()) {
-                chatViewModel.sendMessageTo(selectedContact.uid!!, etChat.text.toString())
+                chatViewModel.sendMessageTo(
+                    selectedContact.uid!!,
+                    etChat.text.toString(),
+                    selectedContact.messagingToken!!
+                )
                     .observe(this@ChatActivity) {
                         when (it) {
                             is Resource.Error -> {
@@ -109,6 +139,11 @@ class ChatActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onStop() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver)
+        super.onStop()
     }
 
     companion object {

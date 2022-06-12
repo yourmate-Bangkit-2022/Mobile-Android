@@ -10,6 +10,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.firmanmardiyanto.yourmate.data.api.ChatApi
 import org.firmanmardiyanto.yourmate.data.repository.AuthRepository
 import org.firmanmardiyanto.yourmate.data.repository.ChatRepository
 import org.firmanmardiyanto.yourmate.data.repository.ContactRepository
@@ -69,5 +70,9 @@ abstract class DataModule {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }
+
+        @Provides
+        fun provideChatApi(@FirebaseCloudMessagingRetrofit retrofit: Retrofit): ChatApi =
+            retrofit.create(ChatApi::class.java)
     }
 }

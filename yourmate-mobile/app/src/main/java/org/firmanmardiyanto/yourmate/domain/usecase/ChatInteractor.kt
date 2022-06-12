@@ -12,8 +12,12 @@ class ChatInteractor @Inject constructor(private val chatRepository: IChatReposi
     override fun getMessagesWith(userId: String): Flow<Resource<List<Message>>> =
         chatRepository.getMessagesWith(userId)
 
-    override fun sendMessageTo(userId: String, message: String): Flow<Resource<Message>> =
-        chatRepository.sendMessageTo(userId, message)
+    override fun sendMessageTo(
+        userId: String,
+        message: String,
+        messagingToken: String
+    ): Flow<Resource<Message>> =
+        chatRepository.sendMessageTo(userId, message, messagingToken)
 
     override fun getLastChats(): Flow<Resource<List<Message>>> = chatRepository.getLastChats()
 
