@@ -24,9 +24,6 @@
     "desc": {
       "type": "string"
     },
-    "rating": {
-      "type": "string"
-    },
     "tourism_categories": {
       "type": "relation",
       "relation": "manyToMany",
@@ -35,6 +32,9 @@
     },
     "category": {
       "type": "string"
+    },
+    "rating": {
+      "type": "float"
     }
   }
 }

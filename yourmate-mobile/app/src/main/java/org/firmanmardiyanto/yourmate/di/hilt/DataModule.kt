@@ -12,13 +12,10 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.firmanmardiyanto.yourmate.data.api.ChatApi
 import org.firmanmardiyanto.yourmate.data.api.TestApi
-import org.firmanmardiyanto.yourmate.data.repository.AuthRepository
-import org.firmanmardiyanto.yourmate.data.repository.ChatRepository
-import org.firmanmardiyanto.yourmate.data.repository.ContactRepository
+import org.firmanmardiyanto.yourmate.data.api.YourmateApi
+import org.firmanmardiyanto.yourmate.data.repository.*
 import org.firmanmardiyanto.yourmate.di.qualifier.FirebaseCloudMessagingRetrofit
-import org.firmanmardiyanto.yourmate.domain.repository.IAuthRepository
-import org.firmanmardiyanto.yourmate.domain.repository.IChatRepository
-import org.firmanmardiyanto.yourmate.domain.repository.IContactRepository
+import org.firmanmardiyanto.yourmate.domain.repository.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -35,6 +32,12 @@ abstract class DataModule {
     @Binds
     abstract fun bindContactRepository(contactRepository: ContactRepository): IContactRepository
 
+    @Binds
+    abstract fun bindPlaceRepository(placeRepository: PlaceRepository): IPlaceRepository
+
+    @Binds
+    abstract fun bindArticleRepository(articleRepository: ArticleRepository): IArticleRepository
+
     companion object {
         @Provides
         fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
@@ -48,7 +51,7 @@ abstract class DataModule {
         @Provides
         fun provideRetrofit(): Retrofit {
             return Retrofit.Builder()
-                .baseUrl("https://fcm.googleapis.com/")
+                .baseUrl("http://localhost:1337/api/")
                 .client(
                     OkHttpClient.Builder()
                         .readTimeout(60, TimeUnit.SECONDS)
@@ -95,6 +98,6 @@ abstract class DataModule {
             retrofit.create(ChatApi::class.java)
 
         @Provides
-        fun provideTestApi(retrofit: Retrofit): TestApi = retrofit.create(TestApi::class.java)
+        fun provideYourmateApi(retrofit: Retrofit): YourmateApi = retrofit.create(YourmateApi::class.java)
     }
 }
