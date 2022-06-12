@@ -8,9 +8,11 @@
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi",
-    "gcp-build": "strapi build"
+    "gcp-build": "strapi build",
+    "seeder": "node ./seeder"
   },
   "dependencies": {
+    "@faker-js/faker": "^7.2.0",
     "@strapi-community/strapi-provider-upload-google-cloud-storage": "^4.1.7",
     "@strapi/plugin-i18n": "4.1.12",
     "@strapi/plugin-users-permissions": "4.1.12",
