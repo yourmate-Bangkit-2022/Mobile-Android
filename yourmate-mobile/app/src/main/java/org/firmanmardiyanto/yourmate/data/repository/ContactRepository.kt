@@ -1,4 +1,4 @@
-package org.firmanmardiyanto.yourmate.data
+package org.firmanmardiyanto.yourmate.data.repository
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
+import org.firmanmardiyanto.yourmate.data.Resource
 import org.firmanmardiyanto.yourmate.domain.model.User
 import org.firmanmardiyanto.yourmate.domain.repository.IContactRepository
 import javax.inject.Inject

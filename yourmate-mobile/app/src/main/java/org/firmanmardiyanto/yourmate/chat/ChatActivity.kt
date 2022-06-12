@@ -5,13 +5,18 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.tasks.await
 import org.firmanmardiyanto.yourmate.adapters.MessageAdapter
 import org.firmanmardiyanto.yourmate.data.Resource
 import org.firmanmardiyanto.yourmate.databinding.ActivityChatBinding
 import org.firmanmardiyanto.yourmate.domain.model.User
 import org.firmanmardiyanto.yourmate.viewmodels.ChatViewModel
+
+private const val TAG = "ChatActivity"
 
 @AndroidEntryPoint
 class ChatActivity : AppCompatActivity() {
@@ -24,6 +29,7 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initUI()
 //        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 //        selectedContact = intent.getParcelableExtra(EXTRA_USER)!!
 //
@@ -36,6 +42,13 @@ class ChatActivity : AppCompatActivity() {
 //        getChats()
 //
 //        addListener()
+    }
+
+    private fun initUI() {
+        lifecycleScope.launchWhenStarted {
+            val token = FirebaseMessaging.getInstance().token.await()
+            Log.d(TAG, "initUI: $token")
+        }
     }
 
     private fun getChats() {

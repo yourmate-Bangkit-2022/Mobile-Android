@@ -16,10 +16,13 @@ import androidx.core.view.ViewCompat
 import dagger.hilt.android.AndroidEntryPoint
 import org.firmanmardiyanto.yourmate.R
 import org.firmanmardiyanto.yourmate.auth.register.RegisterActivity
+import org.firmanmardiyanto.yourmate.base.LoadingDialog
 import org.firmanmardiyanto.yourmate.data.Resource
 import org.firmanmardiyanto.yourmate.databinding.ActivityLoginBinding
+import org.firmanmardiyanto.yourmate.domain.model.User
 import org.firmanmardiyanto.yourmate.home.HomeActivity
 import org.firmanmardiyanto.yourmate.utils.extensions.getColorFromAttr
+import org.firmanmardiyanto.yourmate.utils.extensions.showToast
 import org.firmanmardiyanto.yourmate.viewmodels.AuthViewModel
 
 @AndroidEntryPoint
@@ -27,6 +30,10 @@ class LoginActivity : AppCompatActivity() {
 
     private val authViewModel: AuthViewModel by viewModels()
     private lateinit var binding: ActivityLoginBinding
+
+    private val loadingDialog by lazy { LoadingDialog.create() }
+
+    private var currentUser: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,25 +59,17 @@ class LoginActivity : AppCompatActivity() {
                         .observe(this@LoginActivity) {
                             when (it) {
                                 is Resource.Loading -> {
+                                    loadingDialog.show(supportFragmentManager)
                                     btnLogin.isEnabled = false
                                     btnLogin.text = "Loading..."
                                 }
                                 is Resource.Success -> {
                                     btnLogin.isEnabled = true
-                                    Toast.makeText(
-                                        this@LoginActivity,
-                                        "Login Success",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    startActivity(
-                                        Intent(
-                                            this@LoginActivity,
-                                            HomeActivity::class.java
-                                        )
-                                    )
-                                    finish()
+                                    currentUser = it.data
+                                    checkToken()
                                 }
                                 is Resource.Error -> {
+                                    loadingDialog.dismiss()
                                     btnLogin.isEnabled = true
                                     btnLogin.text = "Login"
                                     Toast.makeText(
@@ -84,6 +83,49 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun checkToken() {
+        authViewModel.currentMessagingToken.observe(this) {
+            when (it) {
+                is Resource.Error -> {
+                    loadingDialog.dismiss()
+                    showToast("Gagal mendapatkan token")
+                    navigateToHome()
+                }
+                is Resource.Loading -> Unit
+                is Resource.Success -> {
+                    if (currentUser?.messagingToken != it.data && it.data != null) {
+                        updateMessagingToken(it.data)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun updateMessagingToken(token: String) {
+        authViewModel.updateMessagingToken(token).observe(this) {
+            when (it) {
+                is Resource.Error -> {
+                    updateMessagingToken(token)
+                }
+                is Resource.Loading -> Unit
+                is Resource.Success -> {
+                    loadingDialog.dismiss()
+                    navigateToHome()
+                }
+            }
+        }
+    }
+
+    private fun navigateToHome() {
+        startActivity(
+            Intent(
+                this@LoginActivity,
+                HomeActivity::class.java
+            )
+        )
+        finish()
     }
 
     private fun setWhiteStatusBar() {

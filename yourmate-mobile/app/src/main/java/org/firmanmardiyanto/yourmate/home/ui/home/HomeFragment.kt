@@ -9,6 +9,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
 import dagger.hilt.android.AndroidEntryPoint
 import org.firmanmardiyanto.yourmate.R
 import org.firmanmardiyanto.yourmate.adapters.ArticleAdapter
@@ -58,6 +61,7 @@ class HomeFragment : Fragment() {
         initFriend()
         initArticle()
         initPlace()
+//        FirebaseMessaging.getInstance().send(RemoteMessage())
     }
 
     private fun initUI() {

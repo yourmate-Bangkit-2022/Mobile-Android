@@ -6,7 +6,8 @@ import org.firmanmardiyanto.yourmate.domain.model.User
 import org.firmanmardiyanto.yourmate.domain.repository.IAuthRepository
 import javax.inject.Inject
 
-class AuthInteractor @Inject constructor(private val authRepository: IAuthRepository) : AuthUseCase {
+class AuthInteractor @Inject constructor(private val authRepository: IAuthRepository) :
+    AuthUseCase {
     override fun signIn(
         email: String,
         password: String
@@ -24,4 +25,10 @@ class AuthInteractor @Inject constructor(private val authRepository: IAuthReposi
 
     override fun sendResetPassword(email: String): Flow<Resource<Boolean>> =
         authRepository.sendResetPassword(email)
+
+    override fun updateMessagingToken(token: String): Flow<Resource<Boolean>> =
+        authRepository.updateMessagingToken(token)
+
+    override fun getCurrentMessagingToken(): Flow<Resource<String>> =
+        authRepository.getCurrentMessagingToken()
 }
