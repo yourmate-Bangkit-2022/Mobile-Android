@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.postDelayed
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -42,6 +43,7 @@ class ChatActivity : AppCompatActivity() {
                     val message =
                         intent?.getParcelableExtra<Message>(YourMateFirebaseMessagingService.EXTRA_MESSAGE)
                     messageAdapter.addItem(message!!)
+                    binding.rvChat.smoothScrollToPosition(messageAdapter.itemCount)
                 } catch (e: Exception) {
                     Log.e(TAG, "onReceive: error received message", e)
                 }
@@ -67,7 +69,7 @@ class ChatActivity : AppCompatActivity() {
         )
     }
 
-    fun initUI() {
+    private fun initUI() {
         with(binding) {
             flBackButton.setOnClickListener {
                 finish()
@@ -84,6 +86,11 @@ class ChatActivity : AppCompatActivity() {
                 adapter = messageAdapter
                 layoutManager = LinearLayoutManager(this@ChatActivity)
                 addItemDecoration(spacingItemDecoration)
+                addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
+                    if (bottom < oldBottom) {
+                        binding.rvChat.smoothScrollToPosition(messageAdapter.itemCount)
+                    }
+                }
             }
 
             btnSend.setOnClickListener {
@@ -113,6 +120,7 @@ class ChatActivity : AppCompatActivity() {
                                 btnSend.isEnabled = true
                                 etChat.text = null
                                 messageAdapter.addItem(it.data!!)
+                                binding.rvChat.smoothScrollToPosition(messageAdapter.itemCount)
                             }
                         }
                     }
@@ -124,12 +132,11 @@ class ChatActivity : AppCompatActivity() {
         selectedContact.let { user ->
             chatViewModel.getMessagesWith(user.uid!!).observe(this) { chatsResponse ->
                 when (chatsResponse) {
-                    is Resource.Loading -> {
-
-                    }
+                    is Resource.Loading -> Unit
                     is Resource.Success -> {
                         chatsResponse.data?.let {
                             messageAdapter.submitList(it)
+                            binding.rvChat.smoothScrollToPosition(messageAdapter.itemCount)
                         }
                     }
                     is Resource.Error -> {
