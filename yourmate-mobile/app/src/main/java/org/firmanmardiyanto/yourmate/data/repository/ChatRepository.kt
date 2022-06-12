@@ -1,5 +1,6 @@
 package org.firmanmardiyanto.yourmate.data.repository
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers
@@ -13,6 +14,8 @@ import org.firmanmardiyanto.yourmate.domain.model.User
 import org.firmanmardiyanto.yourmate.domain.repository.IChatRepository
 import java.sql.Date
 import javax.inject.Inject
+
+private const val TAG = "ChatRepository"
 
 class ChatRepository @Inject constructor(
     private val auth: FirebaseAuth,
@@ -53,7 +56,6 @@ class ChatRepository @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
-
     override fun sendMessageTo(userId: String, message: String): Flow<Resource<Message>> = flow {
         try {
             emit(Resource.Loading())
@@ -88,6 +90,20 @@ class ChatRepository @Inject constructor(
     override fun getLastChats(): Flow<Resource<List<Message>>> {
         TODO("Not yet implemented")
     }
+
+    override fun getAllChats(): Flow<Resource<List<User>>> = flow<Resource<List<User>>> {
+        try {
+            emit(Resource.Loading())
+            val user = auth.currentUser!!
+            val chatRef = database.getReference("chats")
+            val listUserId = chatRef.child(user.uid).get().await()
+            listUserId.children.forEach {
+                Log.d(TAG, "getAllMessage: User ID ${it.key}")
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error((e.message.toString())))
+        }
+    }.flowOn(Dispatchers.IO)
 
     fun getContact(id: String): Flow<Resource<User>> = flow {
         emit(Resource.Loading())

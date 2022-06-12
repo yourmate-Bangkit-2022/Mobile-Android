@@ -1,27 +1,31 @@
 package org.firmanmardiyanto.yourmate.home.ui.contacts
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import org.firmanmardiyanto.yourmate.adapters.ContactsAdapter
-import org.firmanmardiyanto.yourmate.chat.ChatActivity
 import org.firmanmardiyanto.yourmate.data.Resource
 import org.firmanmardiyanto.yourmate.databinding.FragmentContactsBinding
+import org.firmanmardiyanto.yourmate.item_decoration.SpacingItemDecoration
+import org.firmanmardiyanto.yourmate.utils.extensions.showToast
 import org.firmanmardiyanto.yourmate.viewmodels.ContactsViewModel
 
 @AndroidEntryPoint
 class ContactsFragment : Fragment() {
     private val contactsViewModel: ContactsViewModel by viewModels()
+
     private var _binding: FragmentContactsBinding? = null
     private val binding get() = _binding!!
+
+    private val spacingItemDecoration by lazy { SpacingItemDecoration(32) }
+
+    private val contactsAdapter by lazy { ContactsAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,37 +33,59 @@ class ContactsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentContactsBinding.inflate(inflater, container, false)
-        val adapter = ContactsAdapter()
-        adapter.onItemClick = { selectedContact, _ ->
-            val intent = Intent(activity, ChatActivity::class.java)
-            intent.putExtra(ChatActivity.EXTRA_USER, selectedContact)
-            startActivity(intent)
-        }
-        binding.rvUsers.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        contactsViewModel.contacts.observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Loading -> {
-                    binding.pbContacts.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    binding.pbContacts.visibility = View.GONE
-                    Log.d("ContactsFragment", "Success" + it.data?.size)
-                    it.data?.let { contacts -> adapter.submitList(contacts) }
-                    binding.rvUsers.adapter = adapter
-                }
-                is Resource.Error -> {
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                    binding.pbContacts.visibility = View.GONE
-                }
-            }
-        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initUI()
+        loadContacts()
+    }
 
+    private fun initUI() {
+        with(binding) {
+            srlContacts.setOnRefreshListener {
+                srlContacts.isRefreshing = false
+                loadContacts()
+            }
+
+            with(rvContacts) {
+                adapter = contactsAdapter
+                layoutManager = LinearLayoutManager(requireContext())
+                addItemDecoration(spacingItemDecoration)
+            }
+        }
+    }
+
+    private fun loadContacts() {
+        with(binding) {
+            contactsViewModel.getAllContacts().observe(viewLifecycleOwner) {
+                when (it) {
+                    is Resource.Error -> {
+                        clEmpty.isVisible = true
+                        cpiLoading.isVisible = false
+                        rvContacts.isVisible = false
+                        showToast(it.message)
+                    }
+                    is Resource.Loading -> {
+                        clEmpty.isVisible = false
+                        cpiLoading.isVisible = true
+                        rvContacts.isVisible = false
+                    }
+                    is Resource.Success -> {
+                        cpiLoading.isVisible = false
+                        if (it.data.isNullOrEmpty()) {
+                            clEmpty.isVisible = true
+                            rvContacts.isVisible = false
+                        } else {
+                            clEmpty.isVisible = false
+                            rvContacts.isVisible = true
+                        }
+                        contactsAdapter.submitList(it.data)
+                    }
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

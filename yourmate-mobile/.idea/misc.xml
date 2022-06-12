@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/drawable-v24/img_empty.xml" value="0.3205" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/drawable/bg_chat_box.xml" value="0.3165" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/drawable/bg_chip_primary.xml" value="0.3165" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/drawable/bg_chip_white.xml" value="0.3165" />
@@ -12,6 +13,7 @@
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/drawable/bg_dialog.xml" value="0.3165" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/drawable/bg_received_chat.xml" value="0.3165" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/drawable/bg_search_box.xml" value="0.3165" />
+        <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/drawable/bg_search_box_gray.xml" value="0.3165" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/drawable/bg_sent_chat.xml" value="0.3165" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/font-v26/poppins.xml" value="0.39166666666666666" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/font/poppins.xml" value="0.39166666666666666" />
@@ -22,10 +24,13 @@
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/activity_register.xml" value="0.36096014492753625" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/activity_settings.xml" value="0.36096014492753625" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/content_login.xml" value="0.18541666666666667" />
+        <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/fragment_chat.xml" value="0.3625" />
+        <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/fragment_contacts.xml" value="0.3625" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/fragment_first.xml" value="0.3625" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/fragment_profile.xml" value="0.3625" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/layout_item_article.xml" value="0.3614583333333333" />
+        <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/layout_item_contact.xml" value="0.3614583333333333" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/layout_item_friend_recommendation.xml" value="0.3625" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/layout_item_people.xml" value="0.3614583333333333" />
         <entry key="..\:/Modul Latihan/Bangkit/Capstone/Mobile/yourmate-mobile/app/src/main/res/layout/layout_item_place.xml" value="0.3614583333333333" />

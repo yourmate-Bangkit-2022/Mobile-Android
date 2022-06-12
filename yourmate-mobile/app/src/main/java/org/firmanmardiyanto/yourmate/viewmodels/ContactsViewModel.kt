@@ -9,5 +9,5 @@ import javax.inject.Inject
 @HiltViewModel
 class ContactsViewModel @Inject constructor(private val contactUseCase: ContactUseCase) :
     ViewModel() {
-    val contacts = contactUseCase.getContacts().asLiveData()
+    fun getAllContacts() = contactUseCase.getContacts().asLiveData()
 }

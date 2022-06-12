@@ -52,6 +52,8 @@ class SplashScreenActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     if (currentUser?.messagingToken != it.data && it.data != null) {
                         updateMessagingToken(it.data)
+                    } else {
+                        navigateToHome()
                     }
                 }
             }

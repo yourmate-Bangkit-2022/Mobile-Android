@@ -1,4 +1,4 @@
-package org.firmanmardiyanto.yourmate.home.ui.dashboard
+package org.firmanmardiyanto.yourmate.home.ui.chat
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
